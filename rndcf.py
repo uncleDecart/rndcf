@@ -14,7 +14,7 @@ Options:
 """)
     exit(0)
 
-dry_run = True
+dry_run = False
 if '--dry-run' in str(sys.argv):
     dry_run = True
 
@@ -75,14 +75,15 @@ if len(names) % 2 == 1: # not odd we have triplet
 print("Random coffee pairs are:")
 i = 1
 for pair in res:
-    print("{}. {}".format(i, ' '.join(pair)))
+    print("{}. {}".format(i, ' and '.join(pair)))
     i += 1
 
 if not dry_run:
     print("Not a dry run adding pairs to file")
     with open('prev_pairs.txt', 'a') as fp:
-        pair_str = ""
-        for name in pair:
-            pair_str += "\"{}\" ".format(name)
-        fp.write("{}\n".format(pair_str))
+        for pair in res:
+            pair_str = ""
+            for name in pair:
+                pair_str += "\"{}\" ".format(name)
+            fp.write("{}\n".format(pair_str))
     print("Written {} pairs".format(len(res)))
